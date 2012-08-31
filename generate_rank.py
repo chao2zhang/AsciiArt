@@ -1,5 +1,5 @@
-import Image
-import ImageFont, ImageDraw
+import Image, ImageFont, ImageDraw
+from operator import itemgetter
 
 data_file = open('result.txt', 'w')
 
@@ -21,16 +21,19 @@ for o in range(32, 128):
             sumrgba = map(lambda x,y: x + y, sumrgba, pix[x, y])
     sumrgba = map(lambda x: x / (maxx * maxy), sumrgba)
     print chr(o), sumrgba
-    data_file.write('%i:%s\r\n' % (o, sumrgba))
-    arr.append((c, sumrgba[0] + sumrgba[1] + sumrgba[2]))
+    #data_file.write('%i:%s\n' % (o, sumrgba))
+    arr.append((o, (sumrgba[0] + sumrgba[1] + sumrgba[2]) / 3))
 
-data_file.write('Sorted:\r\n')
-arr.sort(lambda x, y: int(x[1] - y[1]))
-for d in map(lambda x: '%s:%f' % (x[0], x[1]), arr):
-    data_file.write('%s\r\n' % d)
+print arr
+#data_file.write('Sorted:\n')
+arr.sort(key = itemgetter(1))
 
-data_file.write('\r\nJust ascii value:\r\n')
-arr = map(lambda x: ord(x[0]), arr)
-data_file.write(str(arr))
+print arr
+#for d in map(lambda x: '%s:%f' % (x[0], x[1]), arr):
+#    data_file.write('%s\n' % d)
+
+#data_file.write('\nJust ascii value:\n')
+for a in arr:
+    data_file.write('%i,%f\n' % (a[0], a[1]))
 
 data_file.close()
