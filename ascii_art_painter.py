@@ -34,7 +34,7 @@ try:
 	if src_y % Y_STEP > 0: src_y -= src_y % Y_STEP
 	dest = Image.new('RGB', (src_x * W_FONT / X_STEP, src_y * H_FONT / Y_STEP), (255, 255, 255))
 	dest_d = ImageDraw.Draw(dest)
-	np_pix = numpy.array(srx_pix)
+	#np_pix = numpy.array(src_pix)
 	for x in range(0, src_x, X_STEP):
 		for y in range(0, src_y, Y_STEP):
 			rgb = [0.0, 0.0, 0.0]
